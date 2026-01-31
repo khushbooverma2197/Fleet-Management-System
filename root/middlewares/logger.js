@@ -1,7 +1,6 @@
-const rateLimit = require('express-rate-limit');
-
-module.exports = rateLimit({
-  windowMs: 15 * 60 * 1000, 
-  max: 3, 
-  message: 'Too many requests, try later.',
-});
+const fs = require("fs");
+module.exports = (req, res, next) => {
+ const log = `${req.method} ${req.url} ${new Date().toISOString()}\n`;
+ fs.appendFileSync("log.txt", log);
+ next();
+};
